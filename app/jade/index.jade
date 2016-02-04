@@ -1,0 +1,127 @@
+doctype
+html
+  head
+    meta(charset='utf-8')
+    link(href="bower_components/reset-css/reset.css",rel="stylesheet")
+    link(href="css/build.min.css",rel="stylesheet")
+    script(src="bower_components/jquery/dist/jquery.min.js")
+    script(src="js/race.js")
+    script(src="js/main.js")
+
+  body
+    .wrapper
+      .header
+        
+      
+        a.header__home.home(href="#")
+          img.home__image(alt="home",src="img/home_icon.png",width="30",height="27")
+
+        div.header__logo.logo
+          img.logo__image(alt="logo",src="img/logo.png")
+        
+        
+        
+        a.header__ava.ava(href="https://api.instagram.com/oauth/authorize/?client_id=50c070e04a404b94821cf02303ab1c69&redirect_uri=http://localhost:8080&response_type=token")
+          img.ava__image(alt="avatar",src="img/login.png")
+      
+      
+      .content
+        .sidebar
+            div.sidebar__user-info.user-info
+              .user-info__top
+                img.user-info__avatar.ava__image.ava__image--big(src="img/avatar.jpg")
+                h3.user-info__nickname Ichaity
+                //span.user-info__miny-description Riley, the Parson Dog
+                p.user-info__description French Canadian spokesdoggy promoting a happy and healthy lifestyle for humans/pets
+                  
+                a.user-info__button.user-info__button--following(href="#") Following
+              
+              div.user-info__statistics
+                div.user-info__followers.followers
+                  span.followers__count  42,000
+                  br
+                  span.followers__cap Followers
+                div.user-info__following.following
+                  span.following__count 878
+                  br
+                  span.following__cap Following
+                  
+                  
+                .clearfix
+              
+              div.user-info__private-site.private-site
+                span.private-site__block 
+                  a.private-site__link(href="http://vk.com") vk.com
+          
+          
+            div.sidebar__recommended.recommended
+              h3.recommended__title Also recommended
+              ul.recommended__list
+                li.recommended__item
+                  div.recommended__ava
+                    img.recommended__image(alt="avatar",src="img/avatar.jpg")
+                  a.recommended__user
+                    span.recommended__name Kostya
+                    br
+                    span.recommended__description Pro developer 100lvl
+                  div.clearfix
+                li.recommended__item
+                  div.recommended__ava
+                    img.recommended__image(alt="avatar",src="img/avatar.jpg")
+                  a.recommended__user
+                    span.recommended__name Kostya
+                    br
+                    span.recommended__description Pro developer 100lvl
+                  div.clearfix
+                li.recommended__item
+                  div.recommended__ava
+                    img.recommended__image(alt="avatar",src="img/avatar.jpg")
+                  a.recommended__user
+                    span.recommended__name Kostya
+                    br
+                    span.recommended__description Pro developer 100lvl
+                  div.clearfix
+                  
+                
+          
+           
+            
+          
+          
+        .main
+          div.main__panel.panel
+            h2.panel__title
+              span.panel__count-post 264
+              &nbsp;
+              b POSTS
+            
+            div.panel__burger-line.burger-line
+            div.panel__burger-square.burger-square
+            .clearfix
+              
+          div.main__boxes.boxes
+            div.boxes__item
+              a.boxes__link(href="#")
+                img.boxes__image(src="img/avatar.jpg")
+            
+            div.boxes__item
+              a.boxes__link(href="#")
+                img.boxes__image(src="img/avatar.jpg")
+
+            div.boxes__item
+              a.boxes__link(href="#")
+                img.boxes__image(src="img/avatar.jpg")
+                
+                
+            div.boxes__item
+
+              a.boxes__link(href="#")
+        
+                img.boxes__image(src="img/avatar.jpg")  
+              
+            
+            div.boxes__item
+              a.boxes__link(href="#")
+                img.boxes__image(src="img/avatar.jpg")
+            
+        .clearfix
