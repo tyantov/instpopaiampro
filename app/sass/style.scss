@@ -87,13 +87,16 @@ body {
 //Content
 
 .content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding:0px 26px 26px 26px;
 }
 
 
 .sidebar {
-  float:left;
-  width:23%;
+  width:300px;
 
 }
 
@@ -269,8 +272,7 @@ body {
 
 
 .main {
-  float:right;
-  width:74%;
+  margin-left:22px;
 }
 
 
