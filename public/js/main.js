@@ -18,6 +18,13 @@ User.prototype.posts = function(callback){
 };
 
 
+User.prototype.photos = function(callback){
+  $.getJSON("https://api.instagram.com/v1/users/self/media/recent/?callback=?&access_token=" + this.access_token,function(data){
+    callback(data)
+  });
+};
+
+
 
 
 $(document).ready(function(){
@@ -29,6 +36,7 @@ $(document).ready(function(){
     var user = new User(access_token);
 
     user.me(function(json){
+      console.log(json);
       $('.ava__image').attr('src',json.data.profile_picture);
       $('.user-info__nickname').html(json.data.username);
       $('.user-info__description').html(json.data.bio);
@@ -40,8 +48,28 @@ $(document).ready(function(){
     });
 
 
-    user.posts(function(json){
-      console.log(json);
+    user.photos(function(photos){
+      if(photos.data.length == 0){
+        $('.boxes').html('Постов нету');
+      }else{
+        //console.log(photos);
+
+
+
+        for(var i = 0 ; i < photos.data.length; i++){
+          console.log(photos.data[i].images.low_resolution.url);
+
+
+          $('.boxes').html(
+            "<div class='boxes__item'> \
+              <a class='boxes__link' href='#'> \
+                <img class='boxes__image' src='"+photos.data[i].images.low_resolution.url+"'> \
+              </a> \
+            </div> \
+             "
+          );
+        }
+      }
     });
 
   }
