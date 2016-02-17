@@ -1,14 +1,21 @@
 doctype
-html
+html(ng-app="instagramModule")
   head
     meta(charset='utf-8')
+    link(href="bower_components/fancybox/source/jquery.fancybox.css",rel="stylesheet")
     link(href="bower_components/reset-css/reset.css",rel="stylesheet")
     link(href="css/build.min.css",rel="stylesheet")
     script(src="bower_components/jquery/dist/jquery.min.js")
+    script(src="bower_components/fancybox/source/jquery.fancybox.js")
+    script(src="bower_components/angular/angular.js")
+    script(src="https://code.angularjs.org/1.5.0/angular-route.min.js")
     script(src="js/race.js")
     script(src="js/main.js")
 
-  body
+
+
+  body(ng-controller="UserCtrl")
+
     .wrapper
       .header
         
@@ -23,26 +30,34 @@ html
         
         a.header__ava.ava(href="https://api.instagram.com/oauth/authorize/?client_id=5429d8c938fd43058043dfa7e6a13b15&redirect_uri=http://localhost:8080&response_type=token")
           img.ava__image(alt="avatar",src="img/login.png")
-      
-      
+
+      div.header__search.search(ng-controller="SearchCtrl")
+        form(ng-submit="searchUser()")
+          input(type="text",placeholder="Search User",ng-model="nameSearch")
+          input(type="submit",value="Отправить")
+
       .content
+
+
+
+
         .sidebar
             div.sidebar__user-info.user-info
               .user-info__top
-                img.user-info__avatar.ava__image.ava__image--big(src="img/avatar.jpg")
-                h3.user-info__nickname Ichaity
+                img.user-info__avatar.ava__image.ava__image--big(src="{{me.profile_picture}}")
+                h3.user-info__nickname {{me.username}}
                 //span.user-info__miny-description Riley, the Parson Dog
-                p.user-info__description French Canadian spokesdoggy promoting a happy and healthy lifestyle for humans/pets
+                p.user-info__description {{me.bio}}
                   
                 a.user-info__button.user-info__button--following(href="#") Following
               
               div.user-info__statistics
                 div.user-info__followers.followers
-                  span.followers__count  42,000
+                  span.followers__count  {{me.counts.followed_by}}
                   br
                   span.followers__cap Followers
                 div.user-info__following.following
-                  span.following__count 878
+                  span.following__count {{me.counts.follows}}
                   br
                   span.following__cap Following
                   
@@ -51,7 +66,7 @@ html
               
               div.user-info__private-site.private-site
                 span.private-site__block 
-                  a.private-site__link(href="http://vk.com") vk.com
+                  a.private-site__link(href="http://vk.com") {{me.website}}
           
           
             div.sidebar__recommended.recommended
@@ -91,7 +106,7 @@ html
         .main
           div.main__panel.panel
             h2.panel__title
-              span.panel__count-post 264
+              span.panel__count-post {{photos.length}}
               &nbsp;
               b POSTS
             
@@ -100,28 +115,8 @@ html
             .clearfix
               
           div.main__boxes.boxes
-            div.boxes__item
-              a.boxes__link(href="#")
-                img.boxes__image(src="img/avatar.jpg")
-            
-            div.boxes__item
-              a.boxes__link(href="#")
-                img.boxes__image(src="img/avatar.jpg")
+            div.boxes__item(ng-repeat="photo in photos")
+              a.boxes__link(href="{{photo.images.standard_resolution.url}}",fancybox=)
+                img.boxes__image(src="{{photo.images.low_resolution.url}}")
 
-            div.boxes__item
-              a.boxes__link(href="#")
-                img.boxes__image(src="img/avatar.jpg")
-                
-                
-            div.boxes__item
-
-              a.boxes__link(href="#")
-        
-                img.boxes__image(src="img/avatar.jpg")  
-              
-            
-            div.boxes__item
-              a.boxes__link(href="#")
-                img.boxes__image(src="img/avatar.jpg")
-            
         .clearfix

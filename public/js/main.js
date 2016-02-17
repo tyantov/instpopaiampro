@@ -1,77 +1,86 @@
-//2533424276.50c070e.901a46f84a964f68a34ab98b4cd7a7a9
-
-var User = function(access_token){
-  this.access_token = access_token;
-};
-
-
-User.prototype.me = function(callback){
-  $.getJSON("https://api.instagram.com/v1/users/self/?callback=?&access_token=" + this.access_token, function(data){
-    callback(data);
-  })
-};
-
-User.prototype.posts = function(callback){
-  $.getJSON("https://api.instagram.com/v1/users/self/media/recent/?callback=?&access_token=" + this.access_token, function(data){
-    callback(data);
-  })
-};
-
-
-User.prototype.photos = function(callback){
-  $.getJSON("https://api.instagram.com/v1/users/self/media/recent/?callback=?&access_token=" + this.access_token,function(data){
-    callback(data)
-  });
-};
+var instagramModule = angular.module('instagramModule',['ngRoute']).config(function($routeProvider){
+    $routeProvider
+    .when('/:username',{
+        templateUrl:'page1.html'
+    });
+});
 
 
 
 
-$(document).ready(function(){
-  if(window.location.hash){
-    var url = window.location.hash.substr(1);
+instagramModule.controller('UserCtrl',function($scope,$http){
 
-    var access_token = url.split('=')[1];
+   var token = getToken(window.location.hash);
 
-    var user = new User(access_token);
 
-    user.me(function(json){
-      console.log(json);
-      $('.ava__image').attr('src',json.data.profile_picture);
-      $('.user-info__nickname').html(json.data.username);
-      $('.user-info__description').html(json.data.bio);
-      $('.panel__count-post').html(251);
 
-      $('.followers__count').html(json.data.counts.followed_by);
-      $('.following__count').html(json.data.counts.follows);
-      $('.private-site__link').attr('href',json.data.website).html(json.data.website);
+   $http.jsonp("https://api.instagram.com/v1/users/self/?callback=JSON_CALLBACK&access_token=" + token).success(function(response){
+       $scope.me = response.data;
+   });
+
+    $http.jsonp("https://api.instagram.com/v1/users/self/media/recent/?callback=JSON_CALLBACK&access_token=" + token).success(function(response){
+        $scope.photos = response.data;
+        console.log($scope.photos);
     });
 
 
-    user.photos(function(photos){
-      if(photos.data.length == 0){
-        $('.boxes').html('Постов нету');
-      }else{
-        //console.log(photos);
 
 
+   function getToken(str){
+        if(str) {
+            var url = str.substr(1);
 
-        for(var i = 0 ; i < photos.data.length; i++){
-          console.log(photos.data[i].images.low_resolution.url);
+            var access_token = url.split('=')[1];
 
-
-          $('.boxes').html(
-            "<div class='boxes__item'> \
-              <a class='boxes__link' href='#'> \
-                <img class='boxes__image' src='"+photos.data[i].images.low_resolution.url+"'> \
-              </a> \
-            </div> \
-             "
-          );
         }
-      }
-    });
 
-  }
+       return access_token;
+    };
 
+
+
+});
+
+
+instagramModule.controller('SearchCtrl',function($scope,$http){
+    var token = getToken(window.location.hash);
+
+    $scope.searchUser = function(){
+        $http.jsonp("https://api.instagram.com/v1/users/search?callback=JSON_CALLBACK&q="+$scope.nameSearch+"&access_token=" + token).success(function(response){
+            $scope.me = response.data;
+            console.log(response);
+        });
+    };
+
+    function getToken(str){
+        if(str) {
+            var url = str.substr(1);
+
+            var access_token = url.split('=')[1];
+
+        }
+
+        return access_token;
+    };
+});
+
+instagramModule.controller('AuthCtrl',function($scope){
+
+});
+
+
+
+instagramModule.directive('fancybox',function(){
+   return {
+       link:function(scope,element,attrs){
+           $(element).fancybox({
+               openEffect  : 'none',
+               closeEffect : 'none',
+               nextEffect  : 'none',
+               prevEffect  : 'none',
+               padding     : 0,
+               margin      : [20, 60, 20, 60]
+           });
+       }
+   };
 });
