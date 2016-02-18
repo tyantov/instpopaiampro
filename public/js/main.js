@@ -1,19 +1,14 @@
 var instagramModule = angular.module('instagramModule',['ngRoute']).config(function($routeProvider){
-    $routeProvider
-    .when('/:username',{
-        templateUrl:'page1.html'
-    });
+
 });
 
 
 instagramModule.service('Url',function(){
-    var str = window.location.hash;
+    var access_token, url, str = window.location.hash;
 
     if(str) {
-        var url = str.substr(1);
-
-        var access_token = url.split('=')[1];
-
+        url = str.substr(1);
+        access_token = url.split('=')[1];
     }
 
     this.access_token = access_token;
@@ -42,10 +37,10 @@ instagramModule.controller('UserCtrl',function($scope,$http,Url){
 instagramModule.controller('SearchCtrl',function($scope,$http,Url){
     var token = Url.access_token;
 
-    $scope.searchUser = function(){
-        $http.jsonp("https://api.instagram.com/v1/tags/search?callback=JSON_CALLBACK&q=член&access_token="+token+"&count=5").success(function(response){
-            $scope.me = response.data;
-            console.log(response);
+    $scope.searchUser = function(arg){
+        $http.jsonp('https://api.instagram.com/v1/tags/' + arg + '/media/recent?callback=JSON_CALLBACK&count=100&access_token='+token).success(function(response){
+            $scope.photos = response.data;
+            console.log($scope.photos);
         });
     };
 });

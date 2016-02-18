@@ -16,15 +16,16 @@ html(ng-app="instagramModule")
 
   body(ng-controller="UserCtrl")
 
-    .wrapper
+    .wrapper(ng-controller="SearchCtrl")
       .header
         
       
-        a.header__home.home(href="#")
+        a.header__home.home(href="/#access_token={{token}}")
           img.home__image(alt="home",src="img/home_icon.png",width="30",height="27")
 
-        div.header__logo.logo
-          img.logo__image(alt="logo",src="img/logo.png")
+        div.header__logo
+          div.logo
+            img.logo__image(alt="logo",src="img/logo.png")
         
         
 
@@ -33,10 +34,11 @@ html(ng-app="instagramModule")
         a.header__ava.ava(ng-if="!me",href="https://api.instagram.com/oauth/authorize/?client_id=5429d8c938fd43058043dfa7e6a13b15&redirect_uri=http://localhost:8080&response_type=token")
           img.ava__image(alt="avatar",src="img/login.png")
 
-      div.header__search.search(ng-controller="SearchCtrl",ng-if="me")
-        form(ng-submit="searchUser()")
-          input(type="text",placeholder="Search User",ng-model="nameSearch")
-          input(type="submit",value="Отправить")
+
+      div.wrapper__search
+        div.search(ng-if="me")
+          form.search__form(ng-submit="searchUser(searchtext)")
+            input.search__text(type="text",placeholder="Search by hash tag",ng-model="searchtext")
 
 
       .auth-warning(ng-if="!token")
@@ -54,9 +56,10 @@ html(ng-app="instagramModule")
                 h3.user-info__nickname {{me.username}}
                 //span.user-info__miny-description Riley, the Parson Dog
                 p.user-info__description {{me.bio}}
-                  
-                a.user-info__button.user-info__button--following(href="#") Following
-              
+
+                div.user-info__button.user-info__button--following
+                  a.button(href="") Following
+
               div.user-info__statistics
                 div.user-info__followers.followers
                   span.followers__count  {{me.counts.followed_by}}
@@ -66,13 +69,13 @@ html(ng-app="instagramModule")
                   span.following__count {{me.counts.follows}}
                   br
                   span.following__cap Following
-                  
-                  
+
+
                 .clearfix
               
               div.user-info__private-site.private-site
-                span.private-site__block 
-                  a.private-site__link(href="http://vk.com") {{me.website}}
+                span.private-site__block
+                  a.private-site__link(href="{{me.website}}") {{me.website}}
           
           
             div.sidebar__recommended.recommended
@@ -116,13 +119,18 @@ html(ng-app="instagramModule")
               &nbsp;
               b POSTS
             
-            div.panel__burger-line.burger-line
-            div.panel__burger-square.burger-square
+            div.panel__burger-line
+              a.burger-line(href="#")
+
+            div.panel__burger-square
+              a.burger-square(href="#")
+
+
             .clearfix
               
           div.main__boxes.boxes
-            div.boxes__item(ng-repeat="photo in photos")
-              a.boxes__link(href="{{photo.images.standard_resolution.url}}",fancybox=)
-                img.boxes__image(src="{{photo.images.low_resolution.url}}")
+            div.box(ng-repeat="photo in photos")
+                a.box__link(href="{{photo.images.standard_resolution.url}}",fancybox=)
+                  img.box__image(src="{{photo.images.low_resolution.url}}")
 
         .clearfix

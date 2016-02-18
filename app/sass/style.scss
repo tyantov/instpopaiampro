@@ -19,7 +19,7 @@ body {
   width:100%;
   min-height: $header_height;
   background: white;
-  margin-bottom: 46px;
+
 
   border-bottom:1px solid rgb(232,232,232);
 
@@ -88,6 +88,7 @@ body {
 //Content
 
 .content {
+  margin-top: 46px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -152,17 +153,7 @@ body {
   }
 
   &__button {
-    display:inline-block;
-    padding:13px 25px 13px 52px;
-    background:#41b941 url(../img/check.png) no-repeat;
-    background-size:15px 15px;
-    background-position: 27px 50%;
-    color:white;
-    text-align: left;
-    text-decoration: none;
-    font:17px "proxima_novalight";
-    border-radius:35px;
-    margin-bottom: 25px;
+
   }
 
 
@@ -192,6 +183,21 @@ body {
   }
 
 
+}
+
+
+.button {
+  display:inline-block;
+  padding:13px 25px 13px 52px;
+  background:#41b941 url(../img/check.png) no-repeat;
+  background-size:15px 15px;
+  background-position: 27px 50%;
+  color:white;
+  text-align: left;
+  text-decoration: none;
+  font:17px "proxima_novalight";
+  border-radius:35px;
+  margin-bottom: 25px;
 }
 
 .followers, .following {
@@ -320,24 +326,24 @@ body {
 
 
 .boxes {
-  margin-top:28px;
+  margin-top:24px;
+}
 
 
+.box {
+  display:inline-block;
+  width:143px;
+  height:143px;
+  padding:7px;
+  margin-right: 17px;
+  margin-bottom:25px;
+  background:white;
+  border:2px solid rgba(239,241,241,1);
 
-  &__item {
-    display:inline-block;
-    width:143px;
-    height:143px;
-    padding:7px;
-    margin-right: 17px;
-    background:white;
-    border:2px solid rgba(239,241,241,1);
+  -webkit-box-shadow: 0px 0px 0px 2px rgba(245,247,247,1);
+  -moz-box-shadow: 0px 0px 0px 2px rgba(245,247,247,1);
+  box-shadow: 0px 0px 0px 2px rgba(245,247,247,1);
 
-    -webkit-box-shadow: 0px 0px 0px 2px rgba(245,247,247,1);
-    -moz-box-shadow: 0px 0px 0px 2px rgba(245,247,247,1);
-    box-shadow: 0px 0px 0px 2px rgba(245,247,247,1);
-
-  }
 
   &__image {
     width:100%;
@@ -352,5 +358,24 @@ body {
   text-align: center;
   margin-top:100px;
   color:rgb(171,173,177);
+  font:20px "proxima_novalight";
+}
+
+
+.wrapper__search {
+  margin:0 7% 0 7%;
+}
+
+
+.search__text{
+  -webkit-box-shadow: 0px 0px 0px 2px rgba(245,247,247,1);
+  -moz-box-shadow: 0px 0px 0px 2px rgba(245,247,247,1);
+  box-shadow: 0px 0px 0px 2px rgba(245,247,247,1);
+  height:50px;
+  width:100%;
+  outline:0;
+  border:0;
+  text-align: center;
+  color:grey;
   font:20px "proxima_novalight";
 }
