@@ -6,13 +6,26 @@ var instagramModule = angular.module('instagramModule',['ngRoute']).config(funct
 });
 
 
+instagramModule.service('Url',function(){
+    var str = window.location.hash;
+
+    if(str) {
+        var url = str.substr(1);
+
+        var access_token = url.split('=')[1];
+
+    }
+
+    this.access_token = access_token;
+});
 
 
-instagramModule.controller('UserCtrl',function($scope,$http){
-
-   var token = getToken(window.location.hash);
 
 
+instagramModule.controller('UserCtrl',function($scope,$http,Url){
+
+    var token = Url.access_token;
+    $scope.token = token;
 
    $http.jsonp("https://api.instagram.com/v1/users/self/?callback=JSON_CALLBACK&access_token=" + token).success(function(response){
        $scope.me = response.data;
@@ -20,54 +33,22 @@ instagramModule.controller('UserCtrl',function($scope,$http){
 
     $http.jsonp("https://api.instagram.com/v1/users/self/media/recent/?callback=JSON_CALLBACK&access_token=" + token).success(function(response){
         $scope.photos = response.data;
-        console.log($scope.photos);
+        //console.log($scope.photos);
     });
-
-
-
-
-   function getToken(str){
-        if(str) {
-            var url = str.substr(1);
-
-            var access_token = url.split('=')[1];
-
-        }
-
-       return access_token;
-    };
-
-
 
 });
 
 
-instagramModule.controller('SearchCtrl',function($scope,$http){
-    var token = getToken(window.location.hash);
+instagramModule.controller('SearchCtrl',function($scope,$http,Url){
+    var token = Url.access_token;
 
     $scope.searchUser = function(){
-        $http.jsonp("https://api.instagram.com/v1/users/search?callback=JSON_CALLBACK&q="+$scope.nameSearch+"&access_token=" + token).success(function(response){
+        $http.jsonp("https://api.instagram.com/v1/tags/search?callback=JSON_CALLBACK&q=член&access_token="+token+"&count=5").success(function(response){
             $scope.me = response.data;
             console.log(response);
         });
     };
-
-    function getToken(str){
-        if(str) {
-            var url = str.substr(1);
-
-            var access_token = url.split('=')[1];
-
-        }
-
-        return access_token;
-    };
 });
-
-instagramModule.controller('AuthCtrl',function($scope){
-
-});
-
 
 
 instagramModule.directive('fancybox',function(){

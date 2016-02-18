@@ -11,6 +11,7 @@ body {
 
 .wrapper {
   width:100%;
+  min-width: 450px;
 }
 
 .header {
@@ -344,4 +345,12 @@ body {
     border:none;
     outline:none;
   }
+}
+
+
+.auth-warning {
+  text-align: center;
+  margin-top:100px;
+  color:rgb(171,173,177);
+  font:20px "proxima_novalight";
 }

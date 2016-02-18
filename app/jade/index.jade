@@ -27,16 +27,22 @@ html(ng-app="instagramModule")
           img.logo__image(alt="logo",src="img/logo.png")
         
         
-        
-        a.header__ava.ava(href="https://api.instagram.com/oauth/authorize/?client_id=5429d8c938fd43058043dfa7e6a13b15&redirect_uri=http://localhost:8080&response_type=token")
+
+        a.header__ava.ava(ng-if="me",href="https://api.instagram.com/oauth/authorize/?client_id=5429d8c938fd43058043dfa7e6a13b15&redirect_uri=http://localhost:8080&response_type=token")
+          img.ava__image(alt="avatar",src="{{me.profile_picture}}")
+        a.header__ava.ava(ng-if="!me",href="https://api.instagram.com/oauth/authorize/?client_id=5429d8c938fd43058043dfa7e6a13b15&redirect_uri=http://localhost:8080&response_type=token")
           img.ava__image(alt="avatar",src="img/login.png")
 
-      div.header__search.search(ng-controller="SearchCtrl")
+      div.header__search.search(ng-controller="SearchCtrl",ng-if="me")
         form(ng-submit="searchUser()")
           input(type="text",placeholder="Search User",ng-model="nameSearch")
           input(type="submit",value="Отправить")
 
-      .content
+
+      .auth-warning(ng-if="!token")
+        h3 Пожалуйста Авторизуйтесь!!!
+
+      .content(ng-if="token")
 
 
 
