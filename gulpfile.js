@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
@@ -11,21 +11,31 @@ var gulp = require('gulp'),
     imageop = require('gulp-image-optimization');
 
 
-
-var bower_js = [
-    "app/bower_components/jquery/dist/jquery.js",
-    "app/bower_components/angular/angular.js",
-    "app/bower_components/angular-route/angular-route.js",
-    "app/bower_components/fancybox/source/jquery.fancybox.js",
-]
+const bower_path = "app/bower_components";
 
 
-
-var bower_css = bowercatalog('app/bower_components/',[
-    'reset-css/reset.css',
-    'fancybox/source/jquery.fancybox.css'
+var bower_js = bowercatalog("app/bower_components/",[
+     "jquery/dist/jquery.js",
+    "angular/angular.js",
+    "angular-route/angular-route.js",
+    "fancybox/source/jquery.fancybox.js",
 ]);
 
+
+var bower_css = bowercatalog("app/bower_components/",[
+    'fancybox/source/jquery.fancybox.css',
+    'reset-css/reset.css',
+]);
+
+
+
+
+var bower_image = bowercatalog("app/bower_components/",[
+    'fancybox/source/**/*.gif',
+    'fancybox/source/**/*.png',
+    'fancybox/source/**/*.jpg',
+    'fancybox/source/**/*.jpeg',
+]);
 
 gulp.task('connect', function() {
   connect.server({
@@ -95,12 +105,22 @@ gulp.task('images',function(){
 });
 
 
+gulp.task('bower_images',function(){
+    gulp.src(bower_image)
+        .pipe(imageop({
+                optimizationLevel: 5,
+                progressive: true,
+                interlaced: true
+    	})).pipe(gulp.dest('public/css'));
+})
+
+
 gulp.task('font',function(){
     gulp.src('app/fonts/**/*')
         .pipe(gulp.dest('public/fonts'))
 });
 
-gulp.task('default',['jade','sass','bower_css','font','images','bower_javascript','custom_javascript','watch','connect']);
+gulp.task('default',['jade','sass','bower_css','font','images','bower_images','bower_javascript','custom_javascript','watch','connect']);
 
 
 
