@@ -1,0 +1,25 @@
+{
+  "name": "public",
+  "authors": [
+    "Xko97 <feelbots@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "normalize.css#~3.0.3",
+    "reset-css": "~2.0.2011012602",
+    "angular": "~1.4.9",
+    "fancybox": "~2.1.5",
+    "angular-route": "~1.5.0"
+  }
+}

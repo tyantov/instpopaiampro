@@ -10,9 +10,10 @@ ehthumbs.db
 Thumbs.db
 ./node_modules
 node_modules
-public/css
-public/index.html
-public/bower_components
-./public/bower_components
-public/bower_components/**/*
-./public/bower_components/**/*
+
+./app/bower_components
+
+.idea
+
+/public
+./public
